@@ -45,9 +45,9 @@ class adblockplus (
   include stdlib
 
   # See https://issues.adblockplus.org/ticket/3574#comment:8
-  class {'base':
-    zone => $authority,
-  }
+  # class {'base':
+  #   zone => $authority,
+  # }
 
   # See https://issues.adblockplus.org/ticket/3575#comment:2
   class {'logrotate':

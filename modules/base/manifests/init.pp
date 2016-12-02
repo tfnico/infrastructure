@@ -1,6 +1,6 @@
 class base ($zone='adblockplus.org') {
 
-  $servers = hiera('servers')
+  $servers = hiera('adblockplus::hosts')
   create_resources(base::explicit_host_record, $servers)
 
   define explicit_host_record(

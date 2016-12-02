@@ -10,7 +10,7 @@ require 'yaml'
 # Where to search for the Hiera configuration
 HIERA_CONFIG = ENV.fetch('PUPPET_HIERA_CONFIG', '/etc/puppet/hiera.yaml')
 # Where to search for the Hosts configuration
-HOSTS_CONFIG = ENV.fetch('PUPPET_HOSTS_CONFIG', '/etc/puppet/infrastructure/modules/private/hiera/hosts.yaml')
+HOSTS_CONFIG = ENV.fetch('PUPPET_HOSTS_CONFIG', '/etc/puppet/infrastructure/modules/private/hiera/base.yaml')
 
 # For logging and usage hints
 BASENAME = File.basename($0)
@@ -64,7 +64,7 @@ end
 # configuration file:
 begin
   config = YAML.load_file(HOSTS_CONFIG)
-  servers = config.fetch("servers", {})
+  servers = config.fetch("adblockplus::hosts", {})
   host = servers.fetch(hostname, {})
   role = host.fetch("role", "default")
 rescue Exception => error
