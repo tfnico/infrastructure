@@ -65,6 +65,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config_data = YAML.load_file(config_path)
   servers = config_data["adblockplus::hosts"]
   servers.each do |server, items|
+    if items['ensure'] == 'absent'
+      next
+    end
     ip = items["ips"][0]
     role = items.fetch("role", "default")
     define_standard_vm(config, server, ip, role)

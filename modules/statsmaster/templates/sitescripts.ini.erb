@@ -1,5 +1,5 @@
 <%
-servers = scope.function_hiera('servers', {})
+servers = scope.function_hiera('adblockplus::hosts', {})
 filter_servers = servers.select { |hostname, record| record.fetch('role', nil) == 'filterserver' }
 fqdn = lambda { |hostname, record| record.fetch 'dns', "#{hostname}.adblockplus.org" }
 -%>
