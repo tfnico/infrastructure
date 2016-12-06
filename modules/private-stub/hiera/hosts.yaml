@@ -1,5 +1,7 @@
 ---
 adblockplus::hosts:
+  absent-example:
+    ensure: "absent"
   filter1:
     ips: [10.8.0.120]
     role: filterserver
