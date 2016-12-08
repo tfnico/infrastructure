@@ -212,6 +212,8 @@ class nginx (
     require => Package['nginx'],
   }
 
+  Service['nginx'] <~ Package['libssl1.0.0', 'openssl']
+
   file {'/usr/share/nginx/html/50x.html':
     mode => 0644,
     owner => 'root',

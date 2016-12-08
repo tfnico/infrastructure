@@ -113,6 +113,10 @@ class adblockplus (
   # https://issues.adblockplus.org/ticket/3574#comment:19
   ensure_packages($packages)
 
+  package {['libssl1.0.0', 'openssl']:
+    ensure => 'latest',
+  }
+
   # https://projects.puppetlabs.com/issues/4145
   ensure_resource('file', '/etc/ssh/ssh_known_hosts', {
     ensure => 'present',

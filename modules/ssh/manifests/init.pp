@@ -38,4 +38,6 @@ class ssh(
     hasrestart => true,
     subscribe => Concat['sshd_config']
   }
+
+  Service['ssh'] <~ Package['libssl1.0.0', 'openssl']
 }
