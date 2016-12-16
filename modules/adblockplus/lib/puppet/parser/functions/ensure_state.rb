@@ -7,15 +7,27 @@ module Puppet::Parser::Functions
     associated with absence, false otherwise.
   begin
 
-    if args.size != 1
-      message = "Usage: ensure_state('...')"
-      raise Puppet::ParseError, message
-    end
+    usage = 'Usage: ensure_state($resource_or_string)'
+    raise Puppet::ParseError, usage unless args.size == 1
 
-    if args[0].to_s.match(/^(absent|false|purged|stopped)$/)
+    if args[0].nil?
       result = false
     else
-      result = true
+
+      if args[0].is_a? String
+        value = args[0]
+      elsif resource = findresource(args[0].to_s)
+        value = resource['ensure'].to_s
+      else
+        raise Puppet::ParseError, usage
+      end
+
+      if value.match(/^(absent|false|purged|stopped)$/)
+        result = false
+      else
+        result = true
+      end
+
     end
 
     return result

@@ -38,7 +38,7 @@ class adblockplus::puppet::agent (
   }, $package))
 
   # https://forge.puppet.com/puppetlabs/stdlib#getparam
-  if ensure_state(getparam(Package['puppet'], 'ensure')) {
+  if ensure_state(Package['puppet']) {
 
     ensure_resource('service', 'puppet', merge({
       'ensure' => 'stopped',
