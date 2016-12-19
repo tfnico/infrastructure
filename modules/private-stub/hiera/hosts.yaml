@@ -81,13 +81,15 @@ adblockplus::hosts:
   web-yt-abp-me-1:
     ips: [10.8.0.148]
     role: web/youtube
-    public_key: *vagrant_box_precise
+    public_key: *vagrant_box_jessie
     groups: [http-servers]
+    os: debian-jessie
   web-fb-abp-me-1:
     ips: [10.8.0.149]
     role: web/facebook
-    public_key: *vagrant_box_precise
+    public_key: *vagrant_box_jessie
     groups: [http-servers]
+    os: debian-jessie
   web-aa-com-1:
     ips: [10.8.0.150]
     role: web/acceptableads
