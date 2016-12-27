@@ -27,7 +27,9 @@ class rietveld(
     log => 'access_log_codereview'
   }
 
-  package {['wget', 'unzip', 'make', 'patch', 'subversion']: ensure => present}
+  package {['wget', 'unzip', 'make', 'patch', 'subversion', 'git']:
+    ensure => present
+  }
 
   user {'rietveld':
     ensure => present,
@@ -60,11 +62,20 @@ class rietveld(
     creates => $rietveld_home,
   }
 
+  file {"${rietveld_home}/mapreduce":
+    ensure => directory,
+    owner => 'root',
+    require => Exec['get_rietveld'],
+  }
+
   exec {'setup_rietveld':
     command => 'make update_revision mapreduce',
     cwd => $rietveld_home,
     user => root,
-    require => [Exec['get_rietveld'], Package['make', 'patch', 'subversion']],
+    require => [
+      Exec['get_rietveld'],
+      Package['make', 'patch', 'subversion', 'git'],
+    ],
     creates => "${rietveld_home}/mapreduce",
   }
 
