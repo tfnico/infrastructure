@@ -152,10 +152,30 @@ class hgweb(
     source => 'puppet:///modules/hgweb/hgweb.fcgi',
   }
 
-  file {'/etc/init.d/hgweb':
-    mode => 755,
-    require => File['/opt/hgweb.fcgi'],
-    source => 'puppet:///modules/hgweb/hgweb.sh',
+  if $::operatingsystem == "Ubuntu" {
+    file {'init_script':
+      name => '/etc/init.d/hgweb',
+      mode => 755,
+      require => File['/opt/hgweb.fcgi'],
+      source => 'puppet:///modules/hgweb/hgweb.sh',
+    }
+  } elsif $::operatingsystem == "Debian" {
+    file {'init_script':
+      name => '/etc/systemd/system/hgweb.service',
+      mode => 755,
+      require => File['/opt/hgweb.fcgi'],
+      source => 'puppet:///modules/hgweb/hgweb.service',
+    } ->
+
+    exec {'enable_initscript':
+      command => '/bin/systemctl enable hgweb.service',
+      user => root,
+    } ->
+
+    exec {'reload_daemon':
+      command => '/bin/systemctl daemon-reload',
+      user => root,
+    }
   }
 
   file {'/home/hg/web/robots.txt':
@@ -172,7 +192,7 @@ class hgweb(
     hasrestart => true,
     hasstatus => false,
     pattern => 'hgweb.fcgi',
-    require => File['/etc/init.d/hgweb'],
+    require => File['init_script'],
     subscribe => File['/etc/hgweb.ini'],
   }
 
