@@ -1,0 +1,36 @@
+classes:
+  statsclient:
+  discourse_docker:
+    domain: "communityforum.adblockplus.org"
+    certificate: "communityforum.adblockplus.org_sslcert.pem"
+    private_key: "communityforum.adblockplus.org_sslcert.key"
+    is_default: true
+    site_settings:
+      title: "Adblock Plus Community Forum"
+      contact_email: "admins@adblockplus.org"
+      notification_email: "donotreply@adblockplus.org"
+      site_contact_username: "system"
+      allow_user_locale: "t"
+      share_links: ""
+      login_required: "f"
+      must_approve_users: "f"
+      enable_local_logins: "f"
+      allow_new_registrations: "t"
+      enable_google_oauth2_logins: "t"
+      enable_yahoo_logins: "f"
+      enable_twitter_logins: "t"
+      enable_instagram_logins: "f"
+      enable_facebook_logins: "t"
+      enable_github_logins: "t"
+      email_domains_blacklist: ""
+      email_domains_whitelist: ""
+      enforce_global_nicknames: "f"
+      max_mentions_per_post: 50
+      google_oauth2_client_id: "%{hiera('discourse_docker::google_oauth2_client_id')}"
+      google_oauth2_client_secret: "%{hiera('discourse_docker::google_oauth2_client_secret')}"
+      force_https: "t"
+      white_listed_spam_host_domains: "adblockplus.org,eyeo.com"
+
+requirements:
+  memory: 4096
+

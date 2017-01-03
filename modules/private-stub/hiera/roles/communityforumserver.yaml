@@ -1,0 +1,9 @@
+# Email addresses of accounts that will get admin privileges (have to be confirmed)
+discourse_docker::admins:
+  - 'test1@adblockplus.org'
+  - 'test2@adblockplus.org'
+
+    # Google OAuth2 credentials (only valid for https://forum-test.adblockplus.org)
+discourse_docker::google_oauth2_client_id: '698709125406-3jodbnl429ie9r00gv4j3ve1olg02sv7.apps.googleusercontent.com'
+discourse_docker::google_oauth2_client_secret: 'tB2ESr1b99qJpbOYqv3PtuPU'
+
