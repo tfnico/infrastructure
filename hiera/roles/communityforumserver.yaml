@@ -1,6 +1,11 @@
 classes:
   statsclient:
   discourse_docker:
+    source:
+      location: 'https://apt.dockerproject.org/repo'
+      include_src: false
+      key: '58118E89F3A912897C070ADBF76221572C52609D'
+      key_server: 'hkp://ha.pool.sks-keyservers.net:80'
     domain: "communityforum.adblockplus.org"
     certificate: "communityforum.adblockplus.org_sslcert.pem"
     private_key: "communityforum.adblockplus.org_sslcert.key"

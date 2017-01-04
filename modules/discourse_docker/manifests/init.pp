@@ -1,47 +1,32 @@
-#
-#
-#  Example:
-#    packages = {'git', 'docker-engine':{'require':Apt::Source['docker']}}
-
 class discourse_docker(
   $domain,
-  $packages = hiera('discourse_docker::packages', {}),
   $certificate = hiera('discourse_docker::certificate', undef),
   $private_key = hiera('discourse_docker::private_key', undef),
   $site_settings = hiera('discourse_docker::site_settings', {}),
   $is_default = hiera('discourse_docker::is_default', false),
   $admins = hiera('discourse_docker::admins', []),
-  $source = hiera('discourse_docker::admins', {}),
+  $source = hiera('discourse_docker::source', {}),
 ) {
 
-  import stdlib
+  include stdlib
 
-  #  ensure_resource('apt::source', $title, $source)
-  apt::source {'docker':
+  ensure_resource('apt::source', 'docker', merge({
     before => Package['docker-engine'],
     location => 'https://apt.dockerproject.org/repo',
     release => downcase("$::osfamily-$::lsbdistcodename"),
     include_src => false,
     key => '58118E89F3A912897C070ADBF76221572C52609D',
     key_server => 'hkp://ha.pool.sks-keyservers.net:80',
+  }, $source))
+
+  package {'git':
+    ensure => present,
   }
 
-  # Used as default $ensure parameter for most resources below
-  $ensure = getparam(Package[$title], 'ensure') ? {
-    /^(absent|purged|held)$/ => 'absent',
-    default => 'present',
+  package {'docker-engine':
+    ensure => 'present',
+    require => Apt::Source['docker'],
   }
-
-  ensure_resources('package', $title, $packages)
-  
-  # package {'git':
-  #   ensure => present,
-  # }
-
-  # package {'docker-engine':
-  #   ensure => 'present',
-  #   require => Apt::Source['docker'],
-  # }
 
   service {'docker':
     ensure => running,
