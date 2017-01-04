@@ -6,6 +6,8 @@ class discourse_docker(
   $is_default = hiera('discourse_docker::is_default', false),
   $admins = hiera('discourse_docker::admins', []),
   $source = hiera('discourse_docker::source', {}),
+  $google_oauth2_client_id = hiera('discourse_docker::google_oauth2_client_id', 'undef'),
+  $google_oauth2_client_secret = hiera('discourse_docker::google_oauth2_client_secret', 'undef'),
 ) {
 
   include stdlib

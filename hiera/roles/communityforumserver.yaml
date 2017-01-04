@@ -31,8 +31,6 @@ classes:
       email_domains_whitelist: ""
       enforce_global_nicknames: "f"
       max_mentions_per_post: 50
-      google_oauth2_client_id: "%{hiera('discourse_docker::google_oauth2_client_id')}"
-      google_oauth2_client_secret: "%{hiera('discourse_docker::google_oauth2_client_secret')}"
       force_https: "t"
       white_listed_spam_host_domains: "adblockplus.org,eyeo.com"
 
