@@ -36,14 +36,6 @@ classes:
       force_https: "t"
       white_listed_spam_host_domains: "adblockplus.org,eyeo.com"
 
-nginx::hostconfig:
-    source: 'puppet:///modules/discourse_docker/site.conf'
-    domain: "communityforum.adblockplus.org"
-    certificate: "communityforum.adblockplus.org_sslcert.pem"
-    private_key: "communityforum.adblockplus.org_sslcert.key"
-    is_default: true
-    log: "access_log_intraforum"
-
 requirements:
   memory: 4096
 
