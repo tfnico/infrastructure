@@ -78,16 +78,4 @@ class discourse_docker(
     logoutput => 'on_failure',
     require => Exec['rebuild'],
   }
-
-  class {'nginx':
-    worker_connections => 500
-  }
-
-  nginx::hostconfig {$domain:
-    source => 'puppet:///modules/discourse_docker/site.conf',
-    is_default => $is_default,
-    certificate => $certificate,
-    private_key => $private_key,
-    log => 'access_log_intraforum'
-  }
 }
